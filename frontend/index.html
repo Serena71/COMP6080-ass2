@@ -6,20 +6,149 @@
     <title>LurkForWork</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- You can add your styles and scripts here -->
-    <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+
+
+    <style>
+        #login-register, footer{
+            margin: 0 2%;
+        }
+        footer{
+            position: absolute;
+            bottom: 0;
+        }
+
+        nav, #welcome, #registered{
+            display: none;
+        }
+
+        #welcome, #registered{
+            text-align: center;
+        }
+
+        /* popup box */
+        #error-popup{
+            display: none;
+            width: 36%;
+            height: 5em;
+            border: 1px solid aliceblue;
+            background-color: aliceblue;
+            border-radius: 5px;
+            margin: 0 auto;
+        }
+        
+        #error-popup #popup-header{
+            background-color: rgb(58, 58, 122);
+            height: 1em;
+            display: flex;
+            justify-content: end;
+        }
+        #popup-close{
+            width: 1em;
+            font-size:10px;
+            text-align: center;
+            color: white;
+        }
+        #error-popup #popup-text{
+            text-align: center;
+            font-size: 15px;
+        }
+
+        /* registration form */
+        #register-form{
+            display: none;
+        }
+
+    </style>
+    
+
 </head>
 <body>
-    <!-- This is an example app structure, you can modify this as much as you choose --> 
-    <header>
-        <h1>lurkforwork.com</h1>
-        <nav>
-            <li class="nav-item">Item</li>
-            <li class="nav-item">Item</li>
-        </nav>
-    </header>
-    <main role="main">
-        <!-- app goes here --> 
-    </main>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">LurkForWork</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3</a></li>
+          </ul>
+        </div>
+    </nav>      
+
+    <div id="login-register">
+
+        <form id="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <br>
+                <input  type="text" placeholder="name@example.com" name="email" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="psw-login">Password:</label>
+                <br>
+                <input type="password" placeholder="Password" name="psw" class="form-control">
+            </div>
+
+            <div class="btn-section">
+                <input type="submit" class="btn btn-primary" name="submit">
+                <small class="form-text text-muted">Don't have an account? Click here for registration</small>
+                <button class="btn btn-success" id="register-btn" >Register</button>
+            </div>
+            
+        </form>
+
+        <form id="register-form">
+            <h2>Register</h2>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <br>
+                <input  type="text" placeholder="name@example.com" name = 'email' class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <br>
+                <input  type="text" name="name" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="psw1">Password:</label>
+                <br>
+                <input type="password" placeholder="Password" name="psw1" class="form-control">
+                <br>
+                <label for="psw2">Confirm your password:</label>
+                <br>
+                <input type="password" placeholder="Password" name="psw2" class="form-control">
+            </div>
+
+            <input type="submit" class="btn btn-primary" name="submit">
+            <button class="btn btn-primary" id="return-login">Back</button>
+        </form>
+    </div>
+
+    <div id="welcome">
+        <h1>WELCOME BACK!</h1>
+    </div>
+
+    <div id="registered">
+        <h1>Congrats! You've successfully registered your account!</h1>
+        <button class="btn btn-primary">Back</button>
+    </div>
+
+
+    <div id="error-popup">
+        <div id="popup-header"> 
+            <div id="popup-close">X</div> 
+        </div>
+        <div id="popup-text"></div>
+    </div>
     <footer>
         <p>&copy; lurkforwork.com 2022</p>
     </footer>

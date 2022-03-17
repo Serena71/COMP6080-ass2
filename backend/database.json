@@ -1,9 +1,21 @@
 {
   "users": {
+    "50532": {
+      "email": "serena991031zs@gmail.com",
+      "name": "Shuang Zhang",
+      "password": "1",
+      "watcheeUserIds": {}
+    },
     "65687": {
       "email": "betty@email.com",
       "name": "Betty",
       "password": "cardigan",
+      "watcheeUserIds": {}
+    },
+    "71564": {
+      "email": "123w",
+      "name": "Serena4803",
+      "password": "1",
       "watcheeUserIds": {}
     },
     "95112": {
