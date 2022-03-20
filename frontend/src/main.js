@@ -32,6 +32,7 @@ function display_error(msg){
 }
 
 
+
 // ####################### get login info #########################
 submit_login.addEventListener('click', (event) =>{
     event.preventDefault();
@@ -54,17 +55,31 @@ submit_login.addEventListener('click', (event) =>{
         fetch(`http://localhost:${BACKEND_PORT}/auth/login`, init)
         .then((response) => response.json())
         .then((body) => {
+            // console.log(body)
             if(body.error){
-                display_error(body.error)
-            }else{
+                display_error(body.error);
+            }
+            else{
                 userToken = body.token;
                 userID = body.userId;
-                console.log(userToken, userID);
+                // console.log(userToken, userID);
                 login_form.style.display = 'none';
                 welcome_page.style.display = 'block';
                 nav_bar.style.display = 'block';
+
+                let init  = {
+                    method: 'GET',
+                    headers: {'Authorization':userToken}
+                }
+                fetch(`http://localhost:${BACKEND_PORT}/job/feed?start=0}`, init)
+                .then((res) => {console.log(res);
+                    res.json()})
+                .then((body) => {
+                    console.log(body)
+                })
+                .catch((e) => console.log(e))
             }
-        })        
+        })
     }else{
         display_error("Please complete the required field");
     }
@@ -124,4 +139,33 @@ submit_register.addEventListener('click', (event)=> {
 
 popup_close.addEventListener('click', (event) =>{
     error_popup.style.display = 'none';
+})
+
+
+// ################# User Profile ##############
+let profile = document.getElementById('own_profile')
+profile.addEventListener('click', (event) => {
+    let user_profile = document.forms['profile_info'];
+    let profile_page = document.getElementById('profile_page');
+    let update_btn = user_profile.elements.update;
+    update_btn.addEventListener('click', (event) =>{
+        // update user profile 
+    })
+    welcome_page.style.display = 'none';
+    profile_page.style.display = 'block';
+    let init = {
+        method: 'GET',
+        headers: {'Authorization':userToken}
+    }
+    fetch(`http://localhost:${BACKEND_PORT}/user?userId=${userID}`, init)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        console.log(data.email);
+        user_profile.elements.email.value = data.email;
+        user_profile.elements.name.value = data.name;
+        user_profile.elements.userId.value = data.id;
+        
+
+    })
 })
