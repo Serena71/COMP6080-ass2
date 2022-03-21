@@ -68,6 +68,20 @@
             display: none;
         }
 
+        #job_panel{
+            padding: 2%;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(163, 178, 230);
+        }
+
+        .comment_boxes{
+            border-top: 1px solid black;
+            padding: 1%;
+            display: flex;
+            flex-direction: column;
+        }
+
         #profile_page{
             display: none;
         }
@@ -83,7 +97,7 @@
             <a class="navbar-brand" href="#">LurkForWork</a>
           </div>
           <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
+            <li id="home"><a href="#">Home</a></li>
             <li id="own_profile"><a href="#">Profile</a></li>
             <li><a href="#">Page 2</a></li>
             <li><a href="#">Page 3</a></li>
@@ -113,7 +127,6 @@
                     <small class="form-text text-muted">Don't have an account? Click here for registration</small>
                     <button class="btn btn-success" id="register-btn" >Register</button>
                 </div>
-                
             </form>
     
             <form id="register-form">
@@ -145,10 +158,6 @@
             </form>
         </div>
     
-        <div id="welcome">
-            <h1>WELCOME BACK!</h1>
-        </div>
-    
         <div id="registered">
             <h1>Congrats! You've successfully registered your account!</h1>
             <button class="btn btn-primary">Back</button>
@@ -163,20 +172,23 @@
         </div>
     
         <div id="profile_page">
+            <h2>Profile</h2>
             <form name="profile_info">
                 Email: 
-                <input type="email", value="", name="email"> <br/>
+                <input type="email", value="", name="email", disabled> <br/>
                 User ID:
-                <input type="text", value="", name="userId"><br/>
+                <input type="text", value="", name="userId", disabled><br/>
                 Name:
-                <input type="text", value="", name="name"><br/>
+                <input type="text", value="", name="name", disabled><br/>
             </form>
+            <button id="update_btn", class="btn btn-success">Update</button>
             Jobs:
             <textarea name="user_profile_jobs" id="" cols="30" rows="10"></textarea>
             <br/>
             Followers:
             <textarea name="user_followers_list" id="" cols="30" rows="10"></textarea>
         </div>
+
 
     </div>
 
