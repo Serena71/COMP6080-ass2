@@ -31,6 +31,75 @@ function display_error(msg){
     error_popup.children[1].innerText = msg;
 }
 
+function get_feed(token, start){
+    const url = `http://localhost:${BACKEND_PORT}/job/feed?start=${start}}`
+    let init  = {
+        method: 'GET',
+        headers: {'Authorization':token}
+    }
+    fetch(url, init)
+        .then((res) => res.json())
+        .then((body) => {
+            console.log('Body value', body)
+            if(body.error){
+                display_error(body.error);
+            }else{
+                create_job_box(body);
+            }
+        })
+
+}
+
+function create_job_box(feeds){
+    let content_screen = document.getElementById('content_screen');
+    const job_panel = document.createElement('div');
+    job_panel.style.border = '1px solid black';
+    job_panel.style.backgroundColor='lightgrey';
+    feeds.forEach(feed => {
+        let job_box = document.createElement('div');
+        job_box.setAttribute('class', 'job_boxes');
+        let img = document.createElement('img');
+        img.src = feed.image;
+        let title = document.createTextNode(feed.title);
+        let description = document.createTextNode(feed.description);
+        
+        job_box.appendChild(img);
+        job_box.appendChild(title);
+        job_box.appendChild(description);
+        job_panel.appendChild(job_box);
+    });
+    content_screen.appendChild(job_panel);
+
+}
+
+
+function get_profile(token, id){
+    let init = {
+        method: 'GET',
+        headers: {'Authorization':token}
+    }
+    fetch(`http://localhost:${BACKEND_PORT}/user?userId=${id}`, init)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        let user_profile = document.forms['profile_info'];
+        let profile_page = document.getElementById('profile_page');
+        if (token === userToken){
+            const update_btn = document.createElement('button');
+            update_btn.setAttribute('id', 'update_btn');
+            update_btn.innerText = 'Update Profile';
+            profile_page.appendChild(update_btn);
+            update_btn.addEventListener('click', (event) =>{
+                // update user profile 
+                event.preventDefault()
+            })
+        }
+        user_profile.elements.email.value = data.email;
+        user_profile.elements.name.value = data.name;
+        user_profile.elements.userId.value = data.id;
+    })
+}
+
 
 
 // ####################### get login info #########################
@@ -66,18 +135,8 @@ submit_login.addEventListener('click', (event) =>{
                 login_form.style.display = 'none';
                 welcome_page.style.display = 'block';
                 nav_bar.style.display = 'block';
-
-                let init  = {
-                    method: 'GET',
-                    headers: {'Authorization':userToken}
-                }
-                fetch(`http://localhost:${BACKEND_PORT}/job/feed?start=0}`, init)
-                .then((res) => {console.log(res);
-                    res.json()})
-                .then((body) => {
-                    console.log(body)
-                })
-                .catch((e) => console.log(e))
+                // ################ Get Job Feeds ######################
+                let job_feeds = get_feed(userToken, 0);
             }
         })
     }else{
@@ -128,7 +187,7 @@ submit_register.addEventListener('click', (event)=> {
             }else{
                 userToken = body.token;
                 userID = body.userId;
-                console.log(userToken, userID);
+                // console.log(userToken, userID);
                 register_form.style.display='none';
                 registered_page.style.display = 'block';
 
@@ -145,27 +204,8 @@ popup_close.addEventListener('click', (event) =>{
 // ################# User Profile ##############
 let profile = document.getElementById('own_profile')
 profile.addEventListener('click', (event) => {
-    let user_profile = document.forms['profile_info'];
-    let profile_page = document.getElementById('profile_page');
-    let update_btn = user_profile.elements.update;
-    update_btn.addEventListener('click', (event) =>{
-        // update user profile 
-    })
+    // let update_btn = user_profile.elements.update;
     welcome_page.style.display = 'none';
     profile_page.style.display = 'block';
-    let init = {
-        method: 'GET',
-        headers: {'Authorization':userToken}
-    }
-    fetch(`http://localhost:${BACKEND_PORT}/user?userId=${userID}`, init)
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data);
-        console.log(data.email);
-        user_profile.elements.email.value = data.email;
-        user_profile.elements.name.value = data.name;
-        user_profile.elements.userId.value = data.id;
-        
-
-    })
+    get_profile(userToken, userID);
 })

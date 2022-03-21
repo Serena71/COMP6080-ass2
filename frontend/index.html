@@ -12,8 +12,12 @@
 
 
     <style>
-        body{
-            padding: 0 2%;
+        #content_screen{
+            /* padding: 0 2%; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         #login-register, footer{
             margin: 0 2%;
@@ -85,94 +89,98 @@
             <li><a href="#">Page 3</a></li>
           </ul>
         </div>
-    </nav>      
+    </nav>
+    
+    <div id="content_screen">
+        <div id="login-register">
 
-    <div id="login-register">
-
-        <form id="login-form">
-            <h2>Login</h2>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <br>
-                <input  type="text" placeholder="name@example.com" name="email" class="form-control">
-            </div>
-            
-            <div class="form-group">
-                <label for="psw-login">Password:</label>
-                <br>
-                <input type="password" placeholder="Password" name="psw" class="form-control">
-            </div>
-
-            <div class="btn-section">
+            <form id="login-form">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <br>
+                    <input  type="text" placeholder="name@example.com" name="email" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="psw-login">Password:</label>
+                    <br>
+                    <input type="password" placeholder="Password" name="psw" class="form-control">
+                </div>
+    
+                <div class="btn-section">
+                    <input type="submit" class="btn btn-primary" name="submit">
+                    <small class="form-text text-muted">Don't have an account? Click here for registration</small>
+                    <button class="btn btn-success" id="register-btn" >Register</button>
+                </div>
+                
+            </form>
+    
+            <form id="register-form">
+                <h2>Register</h2>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <br>
+                    <input  type="text" placeholder="name@example.com" name = 'email' class="form-control">
+                </div>
+    
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <br>
+                    <input  type="text" name="name" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="psw1">Password:</label>
+                    <br>
+                    <input type="password" placeholder="Password" name="psw1" class="form-control">
+                    <br>
+                    <label for="psw2">Confirm your password:</label>
+                    <br>
+                    <input type="password" placeholder="Password" name="psw2" class="form-control">
+                </div>
+    
                 <input type="submit" class="btn btn-primary" name="submit">
-                <small class="form-text text-muted">Don't have an account? Click here for registration</small>
-                <button class="btn btn-success" id="register-btn" >Register</button>
-            </div>
-            
-        </form>
-
-        <form id="register-form">
-            <h2>Register</h2>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <br>
-                <input  type="text" placeholder="name@example.com" name = 'email' class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <br>
-                <input  type="text" name="name" class="form-control">
-            </div>
-            
-            <div class="form-group">
-                <label for="psw1">Password:</label>
-                <br>
-                <input type="password" placeholder="Password" name="psw1" class="form-control">
-                <br>
-                <label for="psw2">Confirm your password:</label>
-                <br>
-                <input type="password" placeholder="Password" name="psw2" class="form-control">
-            </div>
-
-            <input type="submit" class="btn btn-primary" name="submit">
-            <button class="btn btn-primary" id="return-login">Back</button>
-        </form>
-    </div>
-
-    <div id="welcome">
-        <h1>WELCOME BACK!</h1>
-    </div>
-
-    <div id="registered">
-        <h1>Congrats! You've successfully registered your account!</h1>
-        <button class="btn btn-primary">Back</button>
-    </div>
-
-
-    <div id="error-popup">
-        <div id="popup-header"> 
-            <div id="popup-close">X</div> 
+                <button class="btn btn-primary" id="return-login">Back</button>
+            </form>
         </div>
-        <div id="popup-text"></div>
+    
+        <div id="welcome">
+            <h1>WELCOME BACK!</h1>
+        </div>
+    
+        <div id="registered">
+            <h1>Congrats! You've successfully registered your account!</h1>
+            <button class="btn btn-primary">Back</button>
+        </div>
+    
+    
+        <div id="error-popup">
+            <div id="popup-header"> 
+                <div id="popup-close">X</div> 
+            </div>
+            <div id="popup-text"></div>
+        </div>
+    
+        <div id="profile_page">
+            <form name="profile_info">
+                Email: 
+                <input type="email", value="", name="email"> <br/>
+                User ID:
+                <input type="text", value="", name="userId"><br/>
+                Name:
+                <input type="text", value="", name="name"><br/>
+            </form>
+            Jobs:
+            <textarea name="user_profile_jobs" id="" cols="30" rows="10"></textarea>
+            <br/>
+            Followers:
+            <textarea name="user_followers_list" id="" cols="30" rows="10"></textarea>
+        </div>
+
     </div>
 
-    <div id="profile_page">
-        <form name="profile_info">
-            Email: 
-            <input type="email", value="", name="email"> <br/>
-            User ID:
-            <input type="text", value="", name="userId"><br/>
-            Name:
-            <input type="text", value="", name="name"><br/>
-            <button name="update">Update Profile</button>
-        </form>
-        Jobs:
-        <textarea name="user_profile_jobs" id="" cols="30" rows="10"></textarea>
-        <br/>
-        Followers:
-        <textarea name="user_followers_list" id="" cols="30" rows="10"></textarea>
-    </div>
+    
 
 
 
