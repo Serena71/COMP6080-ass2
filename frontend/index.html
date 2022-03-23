@@ -6,87 +6,8 @@
     <title>LurkForWork</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- You can add your styles and scripts here -->
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
-
-
-    <style>
-        #content_screen{
-            /* padding: 0 2%; */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        #login-register, footer{
-            margin: 0 2%;
-        }
-        footer{
-            position: absolute;
-            bottom: 0;
-        }
-
-        nav, #welcome, #registered{
-            display: none;
-        }
-
-        #welcome, #registered{
-            text-align: center;
-        }
-
-        /* popup box */
-        #error-popup{
-            display: none;
-            width: 36%;
-            height: 5em;
-            border: 1px solid aliceblue;
-            background-color: aliceblue;
-            border-radius: 5px;
-            margin: 0 auto;
-        }
-        
-        #error-popup #popup-header{
-            background-color: rgb(58, 58, 122);
-            height: 1em;
-            display: flex;
-            justify-content: end;
-        }
-        #popup-close{
-            width: 1em;
-            font-size:10px;
-            text-align: center;
-            color: white;
-        }
-        #error-popup #popup-text{
-            text-align: center;
-            font-size: 15px;
-        }
-
-        /* registration form */
-        #register-form{
-            display: none;
-        }
-
-        #job_panel{
-            padding: 2%;
-            display: flex;
-            flex-direction: column;
-            background-color: rgb(163, 178, 230);
-        }
-
-        .comment_boxes{
-            border-top: 1px solid black;
-            padding: 1%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #profile_page{
-            display: none;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" />
     
 
 </head>
@@ -99,68 +20,65 @@
           <ul class="nav navbar-nav">
             <li id="home"><a href="#">Home</a></li>
             <li id="own_profile"><a href="#">Profile</a></li>
-            <li><a href="#">Page 2</a></li>
+            <li id="create_post"><a href="#">Post</a></li>
             <li><a href="#">Page 3</a></li>
           </ul>
         </div>
     </nav>
     
     <div id="content_screen">
-        <div id="login-register">
+        <form id="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <br>
+                <input  type="text" placeholder="name@example.com" name="email" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="psw-login">Password:</label>
+                <br>
+                <input type="password" placeholder="Password" name="psw" class="form-control">
+            </div>
 
-            <form id="login-form">
-                <h2>Login</h2>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <br>
-                    <input  type="text" placeholder="name@example.com" name="email" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <label for="psw-login">Password:</label>
-                    <br>
-                    <input type="password" placeholder="Password" name="psw" class="form-control">
-                </div>
-    
-                <div class="btn-section">
-                    <input type="submit" class="btn btn-primary" name="submit">
-                    <small class="form-text text-muted">Don't have an account? Click here for registration</small>
-                    <button class="btn btn-success" id="register-btn" >Register</button>
-                </div>
-            </form>
-    
-            <form id="register-form">
-                <h2>Register</h2>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <br>
-                    <input  type="text" placeholder="name@example.com" name = 'email' class="form-control">
-                </div>
-    
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <br>
-                    <input  type="text" name="name" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <label for="psw1">Password:</label>
-                    <br>
-                    <input type="password" placeholder="Password" name="psw1" class="form-control">
-                    <br>
-                    <label for="psw2">Confirm your password:</label>
-                    <br>
-                    <input type="password" placeholder="Password" name="psw2" class="form-control">
-                </div>
-    
+            <div class="btn-section">
                 <input type="submit" class="btn btn-primary" name="submit">
-                <button class="btn btn-primary" id="return-login">Back</button>
-            </form>
-        </div>
+                <small class="form-text text-muted">Don't have an account? Click here for registration</small>
+                <button class="btn btn-success" id="register-btn" >Register</button>
+            </div>
+        </form>
+    
+        <form id="register-form">
+            <h2>Register</h2>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <br>
+                <input  type="text" placeholder="name@example.com" name = 'email' class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <br>
+                <input  type="text" name="name" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="psw1">Password:</label>
+                <br>
+                <input type="password" placeholder="Password" name="psw1" class="form-control">
+                <br>
+                <label for="psw2">Confirm your password:</label>
+                <br>
+                <input type="password" placeholder="Password" name="psw2" class="form-control">
+            </div>
+
+            <input type="submit" class="btn btn-primary" name="submit">
+            <button class="btn btn-primary return-login">Back</button>
+        </form>
     
         <div id="registered">
             <h1>Congrats! You've successfully registered your account!</h1>
-            <button class="btn btn-primary">Back</button>
+            <button class="btn btn-primary return-login">Back</button>
         </div>
     
     
@@ -172,22 +90,78 @@
         </div>
     
         <div id="profile_page">
-            <h2>Profile</h2>
-            <form name="profile_info">
-                Email: 
-                <input type="email", value="", name="email", disabled> <br/>
-                User ID:
-                <input type="text", value="", name="userId", disabled><br/>
-                Name:
-                <input type="text", value="", name="name", disabled><br/>
+            <div id="btns_other_profile">
+                <button id="watch" class="btn" value = ''></button>
+                <button id="return_own_profile" class="btn btn-primary">Return</button>
+            </div>
+            
+            <form class="profile_section" name="profile_info">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    Profile Picture:
+                    <div id="profile_img"></div>
+                </div>
+                <div class="form-group">
+                    Name:
+                    <input class="form-control" type="text", value="", name="name", disabled>
+                </div>
+                <div class="form-group">
+                    Email: 
+                    <input class="form-control" type="email", value="", name="email", disabled>
+                </div>
+                <div class="form-group">
+                    User ID:
+                    <input class="form-control" type="text", value="", name="userId", disabled>
+                </div>           
+                <button id="update_btn", class="btn btn-success">Update</button>
             </form>
-            <button id="update_btn", class="btn btn-success">Update</button>
-            Jobs:
-            <textarea name="user_profile_jobs" id="" cols="30" rows="10"></textarea>
-            <br/>
-            Followers:
-            <textarea name="user_followers_list" id="" cols="30" rows="10"></textarea>
+            <div id="profile_job" class="profile_section">
+                <h2>Created Jobs</h2>
+                <div id="profile_job_centent"></div>
+            </div>
+            
+            <div id="profile_follower" class="profile_section">
+                <h2>Followers</h2>
+                <div id="profile_follower_content">
+                    <ul id="profile_follower_list">
+                    </ul>
+                </div>
+            </div>
         </div>
+
+
+        <div id="profile_update_page">
+            <form class="profile_section" name="profile_update_form">
+                <h2>Update Your Profile</h2>
+                Upload Profile Picture:
+                <input type="file" name="upload_img" accept="image/*" class="form-control-file"> <br/>
+                New Name:
+                <input class="form-control" type="text", value="", placeholder="Enter your new name", name="name"><br/>
+                New Email: 
+                <input class="form-control" type="email", value="",placeholder="Enter your new email", name="email"> <br/>
+                New Password:
+                <input class="form-control" type="text", value="",placeholder="Enter your new password", name="password"><br/>
+                <button id="confirm_update", class="btn btn-success">Confirm</button>
+            </form>
+        </div>
+        
+
+        
+        <!-- <form name="creat_post_form">
+            <h2>Create your own post</h2>
+            Header:
+            <input type="text" name="header" class="form-control-file"> 
+
+            <input type="file" name="upload_img" accept="image/*" class="form-control-file"> <br/>
+            New Name:
+            <input class="form-control" type="text", value="", placeholder="Enter your new name", name="name"><br/>
+            New Email: 
+            <input class="form-control" type="email", value="",placeholder="Enter your new email", name="email"> <br/>
+            New Password:
+            <input class="form-control" type="text", value="",placeholder="Enter your new password", name="password"><br/>
+            <button id=", class="btn btn-success">Confirm</button>
+        </form> -->
+       
 
 
     </div>

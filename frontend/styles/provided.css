@@ -1,0 +1,117 @@
+
+body{
+    background-color:aliceblue;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+#content_screen{
+    width: 90%;
+    padding: 0 2%;
+    display: flex;
+    flex: 5;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+footer{
+    margin: 0 2%;
+}
+
+nav, #registered{
+    display: none;
+}
+nav {
+    width: 100%;
+}
+
+#registered{
+    text-align: center;
+}
+
+/* popup box */
+#error-popup{
+    display: none;
+    width: 36%;
+    height: 5em;
+    border: 1px solid aliceblue;
+    background-color: aliceblue;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+#error-popup #popup-header{
+    background-color: rgb(58, 58, 122);
+    height: 1em;
+    display: flex;
+    justify-content: end;
+}
+#popup-close{
+    width: 1em;
+    font-size:10px;
+    text-align: center;
+    color: white;
+}
+#error-popup #popup-text{
+    text-align: center;
+    font-size: 15px;
+}
+
+
+#register-form{
+    display: none;
+    width: 65%;
+}
+
+#login-form{
+    width: 65%;
+}
+
+#job_panel{
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.leave_comments{
+    display: flex;
+}
+.leave_comments > textarea{
+    flex: 5;
+}
+
+.comment_boxes{
+    border-bottom: 1px solid black;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+#profile_img{
+    /* width: 180px;
+    height: 180px; */
+    width: 5rem;
+    height: 5rem;
+    
+}
+
+.profile_section{
+    padding: 2%;
+}
+
+#profile_page{
+    display: none;
+}
+
+#profile_update_page{
+    display: none;
+}
+
+#creat_post_form{
+    display: none;
+}
+
