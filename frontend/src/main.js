@@ -252,18 +252,23 @@ const get_profile = (id) =>{
         }
 
         // display followers
+        const profile_follower_section = document.getElementById('profile_follower');
+        const n_follower = data.watcheeUserIds.length;
+        console.log(n_follower)
+
         const profile_follower_list = document.getElementById('profile_follower_list');
+        profile_follower_list.textContent='';
         for (const follower of data.watcheeUserIds){
             apiCall(`user?userId=${follower}`, 'GET', {})
             .then((user) => {
                 const name = user.name;
                 const user_link = document.createElement('li');
-                profile_follower_list.textContent='';
                 user_link.appendChild(
                     document.createTextNode(name)
                 );
                 profile_follower_list.appendChild(user_link);
-
+                
+                // access other user's profile
                 user_link.addEventListener('click', (e) => {
                     // job_panel.style.display = 'none';
                     if(Object.values(user.watcheeUserIds).includes(userID)){
