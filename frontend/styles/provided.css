@@ -33,6 +33,10 @@ footer {
   top: 0px;
 }
 
+#navbar > input {
+  width: 20%;
+}
+
 #screen_registered {
   text-align: center;
 }
@@ -136,10 +140,6 @@ footer {
   flex: 1;
   height: 50%;
   overflow: scroll;
-}
-
-#search_box {
-  display: inline-block;
 }
 
 .btn_group {
