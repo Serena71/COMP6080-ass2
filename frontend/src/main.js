@@ -47,9 +47,6 @@ let startId = 0;
 
 function apiCall(path, method, body) {
   return new Promise((resolve, reject) => {
-    // // from stackoverflow
-    // let url = new URL();
-    // url.search = new URLSearchParams(params).toString();
     const init = {
       method: method,
       headers: {
@@ -68,7 +65,12 @@ const processTime = (createdAt) => {
   const now = new Date();
   const time = new Date(createdAt);
   let display_time = "";
-  const diff = now.getTime() - time.getTime();
+  let diff = now.getTime() - time.getTime();
+
+  if (time.getTime() > now.getTime()) {
+    diff = time.getTime() - now.getTime();
+  }
+
   if (diff / 3600 < 24000) {
     const min = Math.round((diff / 60000) % 60);
     const hr = Math.round(Math.floor(diff / 3600000));
@@ -102,9 +104,18 @@ function sort_by_date(jobs) {
 // ############### Search User By Email #############
 search_btn.addEventListener("click", (e) => {
   e.preventDefault();
-  const email = search_box.value;
-  if (email) {
-  }
+  const requestBody = {
+    email: search_box.value,
+    turnon: true,
+  };
+  apiCall("user/watch", "PUT", requestBody).then((res) => {
+    if (res.error) {
+      display_error(res.error);
+    } else {
+      search_box.value = "";
+      console.log("search watch successful");
+    }
+  });
 });
 
 // ############## get job feeds ###################
@@ -305,7 +316,7 @@ const job_del_upd = (job) => {
 
 const get_profile = (id) => {
   apiCall(`user?userId=${id}`, "GET", {}).then((data) => {
-    console.log("profile data:", data);
+    console.log("getting profile");
     // display personal info
     const user_profile = document.forms["profile_info"];
     if (id === userID) {
@@ -374,6 +385,7 @@ const get_profile = (id) => {
             console.log("you are currently NOT watching this person");
           }
           btn_watch.addEventListener("click", (e) => {
+            console.log("clicking the wtach button");
             e.preventDefault();
             let watch = false;
             if (btn_watch.textContent == "Unwatch") {
@@ -386,6 +398,7 @@ const get_profile = (id) => {
               btn_watch.classList.add("btn-secondary");
               watch = true;
             }
+            // watchUser(user.email, watch);
 
             const requestBody = {
               email: user.email,
@@ -395,8 +408,7 @@ const get_profile = (id) => {
               if (res.error) {
                 display_error(res.error);
               } else {
-                console.log("watch/unwatch successful", watch);
-                // get_profile(follower);
+                console.log("watch/unwatch successful", user.name, watch);
               }
             });
           });
@@ -700,5 +712,5 @@ const createJobFeed = (job) => {
   job_box.appendChild(other_comments);
   return job_box;
 };
-// login("james@email.com", "betty");
-login("betty@email.com", "caca");
+login("james@email.com", "betty");
+// login("betty@email.com", "caca");
