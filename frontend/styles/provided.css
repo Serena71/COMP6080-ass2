@@ -1,6 +1,6 @@
 body {
   background-color: aliceblue;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
@@ -12,28 +12,24 @@ h3 {
 }
 #body_content {
   width: 90%;
-  height: 100%;
-  padding: 0 2%;
+  padding: 1% 2%;
   display: flex;
   /* flex: 5; */
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  overflow: scroll;
 }
 footer {
   margin: 0 2%;
-  position: absolute;
-  bottom: 5px;
 }
 
-nav,
 #screen_registered {
   display: none;
 }
-nav {
+#navbar {
+  display: none;
   width: 100%;
-  position: sticky !important;
+  position: sticky;
   top: 0px;
 }
 
@@ -130,7 +126,7 @@ nav {
 }
 #profile_job {
   flex: 2;
-  height: 30rem;
+  height: 90vh;
   overflow: scroll;
 }
 #profile_personal {
@@ -144,4 +140,10 @@ nav {
 
 #search_box {
   display: inline-block;
+}
+
+.btn_group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

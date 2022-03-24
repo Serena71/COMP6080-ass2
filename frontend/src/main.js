@@ -35,6 +35,7 @@ const screen_create_post = document.forms["screen_create_post"];
 const btn_post = document.getElementById("btn_post");
 const screen_update_post = document.forms["screen_update_post"];
 const btn_update_post = document.getElementById("btn_update_post");
+const btn_cancel_update_post = document.getElementById("btn_cancel_update_post");
 
 const screen_jobs = document.getElementById("screen_jobs");
 
@@ -113,7 +114,7 @@ search_btn.addEventListener("click", (e) => {
       display_error(res.error);
     } else {
       search_box.value = "";
-      console.log("search watch successful");
+      // console.log("search watch successful");
     }
   });
 });
@@ -156,10 +157,11 @@ const login = (email, psw) => {
 
       // ################ Get Job Feeds ######################
       getFeedPage(startId);
-
       // ############ infinite scroll #################
       window.addEventListener("scroll", () => {
+        console.log("working");
         if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+          console.log("reached end");
           getFeedPage(startId);
         }
       });
@@ -245,34 +247,51 @@ popup_close.addEventListener("click", (event) => {
 
 // ################# job delete/update ##################
 // ##################################################
+const apiPostUpdate = (screen_update_post, img) => {
+  const requestBody = {
+    title: screen_update_post.elements.title.value,
+    image: img,
+    start: screen_update_post.elements.start.value,
+    description: screen_update_post.elements.description.value,
+  };
+  // console.log(requestBody);
+  apiCall("job", "POST", requestBody).then((res) => {
+    if (res.error) {
+      display_error("error");
+    } else {
+      console.log("Job posted successfully");
+      display_error("Job posted successfully");
+      get_profile(userID);
+    }
+  });
+};
+
 const updateJob = (job) => {
   screen_update_post.elements.title.value = job.title;
   screen_update_post.elements.start.value = job.start;
-  screen_update_post.elements.img.value = job.image;
+  document.getElementById("update_post_ori_img").src = job.image;
   screen_update_post.elements.description.value = job.description;
   screen_update_post.elements.title.value = job.title;
   btn_post.textContent = "Update";
+  screen_update_post.style.display = "block";
+  screen_profile.style.display = "none";
 
   btn_update_post.addEventListener("click", (e) => {
     e.preventDefault();
-    fileToDataUrl(screen_update_post.elements.image.files[0]).then((img) => {
-      const requestBody = {
-        title: screen_update_post.elements.title.value,
-        image: img,
-        start: screen_update_post.elements.start.value,
-        description: screen_update_post.elements.description.value,
-      };
-      // console.log(requestBody);
-      apiCall("job", "POST", requestBody).then((res) => {
-        if (res.error) {
-          display_error("error");
-        } else {
-          console.log("Job posted successfully");
-          display_error("Job posted successfully");
-          get_profile(userID);
-        }
+    const new_job_img = screen_update_post.elements.image.files[0];
+    if (new_job_img) {
+      fileToDataUrl(new_job_img).then((img) => {
+        apiPostUpdate(screen_update_post, img);
       });
-    });
+    } else {
+      apiPostUpdate(screen_update_post, undefined);
+    }
+  });
+
+  btn_cancel_update_post.addEventListener("click", (e) => {
+    e.preventDefault();
+    screen_update_post.reset();
+    display_profile();
   });
 };
 
@@ -284,8 +303,7 @@ const job_del_upd = (job) => {
   const upd = document.createElement("button");
   upd.classList.add("btn");
   upd.classList.add("btn-primary");
-  deleteUpdate.style.display = "flex";
-  deleteUpdate.style.justifyContent = "space-between";
+  deleteUpdate.classList.add("btn_group");
 
   del.textContent = "Delete";
   upd.textContent = "Update";
@@ -362,60 +380,61 @@ const get_profile = (id) => {
     const profile_follower_list = document.getElementById("profile_follower_list");
     profile_follower_list.textContent = "";
 
-    for (const follower of data.watcheeUserIds) {
-      apiCall(`user?userId=${follower}`, "GET", {}).then((user) => {
+    // use promise.all to get all followers
+    console.log(data);
+    const followers = data.watcheeUserIds.map((id) => apiCall(`user?userId=${id}`, "GET", {}));
+    Promise.all(followers).then((users) => {
+      console.log("followers are", users);
+      users.forEach((user) => {
         const name = user.name;
         const user_link = document.createElement("li");
         user_link.appendChild(document.createTextNode(name));
         profile_follower_list.appendChild(user_link);
-        display_profile();
 
-        // access other user's profile
         user_link.addEventListener("click", (e) => {
+          console.log("going to profile of ", user.name);
+          let isWatching = Object.values(user.watcheeUserIds).includes(userID);
           e.preventDefault();
-          if (Object.values(user.watcheeUserIds).includes(userID)) {
+          if (isWatching) {
             btn_watch.textContent = "Unwatch";
             btn_watch.classList.remove("btn-success");
             btn_watch.classList.add("btn-secondary");
-            console.log("you are currently watching this person");
           } else {
             btn_watch.textContent = "Watch";
             btn_watch.classList.remove("btn-secondary");
             btn_watch.classList.add("btn-success");
-            console.log("you are currently NOT watching this person");
           }
-          btn_watch.addEventListener("click", (e) => {
-            console.log("clicking the wtach button");
-            e.preventDefault();
-            let watch = false;
-            if (btn_watch.textContent == "Unwatch") {
-              btn_watch.textContent = "Watch";
-              btn_watch.classList.remove("btn-secondary");
-              btn_watch.classList.add("btn-success");
-            } else {
-              btn_watch.textContent = "Unwatch";
-              btn_watch.classList.remove("btn-success");
-              btn_watch.classList.add("btn-secondary");
-              watch = true;
-            }
-            // watchUser(user.email, watch);
+          get_profile(user.id);
+        });
 
-            const requestBody = {
-              email: user.email,
-              turnon: watch,
-            };
-            apiCall("user/watch", "PUT", requestBody).then((res) => {
-              if (res.error) {
-                display_error(res.error);
-              } else {
-                console.log("watch/unwatch successful", user.name, watch);
-              }
-            });
+        btn_watch.addEventListener("click", (e) => {
+          e.preventDefault();
+          let watch = false;
+          if (btn_watch.textContent == "Unwatch") {
+            btn_watch.textContent = "Watch";
+            btn_watch.classList.remove("btn-secondary");
+            btn_watch.classList.add("btn-success");
+          } else {
+            btn_watch.textContent = "Unwatch";
+            btn_watch.classList.remove("btn-success");
+            btn_watch.classList.add("btn-secondary");
+            watch = true;
+          }
+          const requestBody = {
+            email: user.email,
+            turnon: watch,
+          };
+          apiCall("user/watch", "PUT", requestBody).then((res) => {
+            if (res.error) {
+              display_error(res.error);
+            } else {
+              console.log("watched the user", user.name);
+            }
           });
-          get_profile(follower);
         });
       });
-    }
+      display_profile();
+    });
   });
 };
 
@@ -428,6 +447,7 @@ const display_profile = () => {
   screen_create_post.style.display = "none";
   screen_profile_update.style.display = "none";
   screen_jobs.style.display = "none";
+  screen_update_post.style.display = "none";
 };
 
 // go to own profile
@@ -491,6 +511,16 @@ home.addEventListener("click", () => {
   screen_create_post.style.display = "none";
   screen_profile_update.style.display = "none";
   screen_update_post.style.display = "none";
+
+  getFeedPage(startId);
+  // ############ infinite scroll #################
+  window.addEventListener("scroll", () => {
+    console.log("working");
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+      console.log("reached end");
+      getFeedPage(startId);
+    }
+  });
 });
 
 // ############## Create Job ######################
@@ -712,5 +742,5 @@ const createJobFeed = (job) => {
   job_box.appendChild(other_comments);
   return job_box;
 };
-login("james@email.com", "betty");
-// login("betty@email.com", "caca");
+// login("james@email.com", "betty");
+login("betty@email.com", "cardigan");

@@ -6,37 +6,56 @@
     <title>LurkForWork</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- You can add your styles and scripts here -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" />
   </head>
   <body>
     <!-- Nav Bar, stick on top of screen -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">LurkForWork</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+      <a class="navbar-brand" href="#">LurkForWork</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item" id="home">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item" id="own_profile">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item" id="create_post">
-              <a class="nav-link" href="#">Post My Job</a>
-            </li>
-          </ul>
-        
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Enter an email address to watch the user" aria-label="Search" id="search_box">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_btn">Watch</button>
-          </form>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" id="home">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item" id="own_profile">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item" id="create_post">
+            <a class="nav-link" href="#">Post My Job</a>
+          </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Enter an email address to watch the user"
+            aria-label="Search"
+            id="search_box"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_btn">Watch</button>
+        </form>
+      </div>
     </nav>
 
     <!-- the div for webpage contents -->
@@ -56,8 +75,8 @@
           <input type="password" placeholder="Password" name="psw" class="form-control" />
         </div>
 
-        <div class="btn-section">
-          <input type="submit" class="btn btn-primary" name="submit" />
+        <div class="btn-group">
+          <input type="submit" class="btn btn-primary" name="submit" value="Login" />
           <small class="form-text text-muted">Don't have an account? Click here for registration</small>
           <button class="btn btn-success" id="register-btn">Register</button>
         </div>
@@ -87,9 +106,10 @@
           <br />
           <input type="password" placeholder="Password" name="psw2" class="form-control" />
         </div>
-
-        <input type="submit" class="btn btn-primary" name="submit" />
-        <button class="btn btn-primary return-login">Back</button>
+        <div class="btn_group">
+          <input type="submit" class="btn btn-primary" name="submit" />
+          <button class="btn btn-primary return-login">Back</button>
+        </div>
       </form>
 
       <!-- response after registration -->
@@ -216,6 +236,10 @@
         </div>
 
         <div class="form-group">
+          <img src="" alt="" id="update_post_ori_img" />
+        </div>
+
+        <div class="form-group">
           <input type="file" name="image" accept="image/*" class="form-control-file" />
         </div>
 
@@ -229,15 +253,20 @@
           <input class="form-control" type="date" value="" name="start" />
         </div>
 
-        <button id="btn_update_post" , class="btn btn-success">Update</button>
+        <div class="btn_group">
+          <button id="btn_update_post" , class="btn btn-success">Update</button>
+          <button id="btn_cancel_update_post" , class="btn btn-danger">Cancel</button>
+        </div>
       </form>
 
       <!-- show the returned job feeds -->
       <div id="screen_jobs"></div>
+    </div>
 
     <footer>
       <p>&copy; lurkforwork.com 2022</p>
     </footer>
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -253,6 +282,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
