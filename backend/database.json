@@ -1,105 +1,41 @@
 {
   "users": {
-    "34327": {
+    "40899": {
       "email": "james@email.com",
       "name": "James",
       "password": "betty",
       "watcheeUserIds": {
-        "56129": true,
-        "76499": true
+        "59488": true,
+        "86594": true
       }
     },
-    "56129": {
+    "59488": {
+      "email": "augustine@email.com",
+      "name": "Augustine",
+      "password": "august",
+      "watcheeUserIds": {
+        "40899": true,
+        "86594": true
+      }
+    },
+    "86594": {
       "email": "betty@email.com",
       "name": "Betty",
       "password": "cardigan",
       "watcheeUserIds": {
-        "34327": true,
-        "56129": true
+        "40899": true
       }
-    },
-    "76499": {
-      "email": "augustine@email.com",
-      "name": "Augustine",
-      "password": "august",
-      "watcheeUserIds": {}
     }
   },
   "posts": {
-    "491816": {
-      "id": "491816",
-      "creatorId": 56129,
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-      "title": "Job 1",
-      "start": "2022-04-02",
-      "description": "this is a job 1",
-      "createdAt": "2022-03-24T16:12:26.525Z",
-      "likes": {},
-      "comments": []
-    },
-    "524946": {
-      "id": "524946",
-      "creatorId": 56129,
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-      "title": "Job 4",
-      "start": "2022-04-09",
-      "description": "job 4 is here",
-      "createdAt": "2022-03-24T16:13:15.524Z",
-      "likes": {},
-      "comments": []
-    },
-    "533038": {
-      "id": "533038",
-      "creatorId": 56129,
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-      "title": "Job 3",
-      "start": "2022-04-28",
-      "description": "this is job 3",
-      "createdAt": "2022-03-24T16:13:00.172Z",
-      "likes": {},
-      "comments": []
-    },
-    "709126": {
-      "id": "709126",
-      "creatorId": 56129,
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-      "title": "job 5",
-      "start": "2022-04-06",
-      "description": "job 5 is here",
-      "createdAt": "2022-03-24T16:13:30.566Z",
-      "likes": {},
-      "comments": []
-    },
-    "710466": {
-      "id": "710466",
-      "creatorId": 56129,
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-      "title": "Job 2",
-      "start": "2022-04-02",
-      "description": "This is job 2",
-      "createdAt": "2022-03-24T16:12:38.495Z",
-      "likes": {},
-      "comments": []
-    },
-    "851680": {
-      "id": "851680",
-      "creatorId": 56129,
+    "700062": {
+      "id": "700062",
+      "creatorId": 86594,
       "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
       "title": "Hello Kitty Director",
       "start": "2011-10-05T14:48:00.000Z",
       "description": "Dedicated technical wizard with a passion and interest in human relationships",
-      "createdAt": "2022-03-24T16:01:22.933Z",
-      "likes": {},
-      "comments": []
-    },
-    "987073": {
-      "id": "987073",
-      "creatorId": 56129,
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-      "title": "job 6",
-      "start": "2022-04-08",
-      "description": "job 6 is here",
-      "createdAt": "2022-03-24T16:13:39.514Z",
+      "createdAt": "2022-03-24T16:37:24.961Z",
       "likes": {},
       "comments": []
     }

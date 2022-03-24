@@ -22,6 +22,7 @@ const undefined_job_image =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
 
 const screen_profile = document.getElementById("screen_profile");
+const user_profile = document.forms["profile_info"];
 const btn_update_profile = document.getElementById("btn_update_profile");
 btn_update_profile.style.display = "none";
 const screen_profile_update = document.getElementById("screen_profile_update");
@@ -336,7 +337,7 @@ const get_profile = (id) => {
   apiCall(`user?userId=${id}`, "GET", {}).then((data) => {
     console.log("getting profile");
     // display personal info
-    const user_profile = document.forms["profile_info"];
+
     if (id === userID) {
       btn_update_profile.style.display = "block";
       btns_other_profile.style.display = "none";
@@ -391,9 +392,10 @@ const get_profile = (id) => {
         user_link.appendChild(document.createTextNode(name));
         profile_follower_list.appendChild(user_link);
 
+        let isWatching = Object.values(user.watcheeUserIds).includes(userID);
+
         user_link.addEventListener("click", (e) => {
           console.log("going to profile of ", user.name);
-          let isWatching = Object.values(user.watcheeUserIds).includes(userID);
           e.preventDefault();
           if (isWatching) {
             btn_watch.textContent = "Unwatch";
@@ -406,37 +408,51 @@ const get_profile = (id) => {
           }
           get_profile(user.id);
         });
-
-        btn_watch.addEventListener("click", (e) => {
-          e.preventDefault();
-          let watch = false;
-          if (btn_watch.textContent == "Unwatch") {
-            btn_watch.textContent = "Watch";
-            btn_watch.classList.remove("btn-secondary");
-            btn_watch.classList.add("btn-success");
-          } else {
-            btn_watch.textContent = "Unwatch";
-            btn_watch.classList.remove("btn-success");
-            btn_watch.classList.add("btn-secondary");
-            watch = true;
-          }
-          const requestBody = {
-            email: user.email,
-            turnon: watch,
-          };
-          apiCall("user/watch", "PUT", requestBody).then((res) => {
-            if (res.error) {
-              display_error(res.error);
-            } else {
-              console.log("watched the user", user.name);
-            }
-          });
-        });
+        // btn event
       });
       display_profile();
     });
   });
+  console.log("hey");
 };
+
+btn_watch.addEventListener("click", (e) => {
+  e.preventDefault();
+  const email = user_profile.elements.email.value;
+  if (btn_watch.classList.contains("btn-secondary")) {
+    const requestBody = {
+      email: email,
+      turnon: false,
+    };
+    apiCall("user/watch", "PUT", requestBody).then((res) => {
+      if (res.error) {
+        display_error(res.error);
+      } else {
+        btn_watch.textContent = "Watch";
+        btn_watch.classList.remove("btn-secondary");
+        btn_watch.classList.add("btn-success");
+        console.log("successful unwatch", watch, email);
+        get_profile(user_profile.elements.userId.value);
+      }
+    });
+  } else {
+    const requestBody = {
+      email: email,
+      turnon: true,
+    };
+    apiCall("user/watch", "PUT", requestBody).then((res) => {
+      if (res.error) {
+        display_error(res.error);
+      } else {
+        btn_watch.textContent = "Unwatch";
+        btn_watch.classList.remove("btn-success");
+        btn_watch.classList.add("btn-secondary");
+        console.log("successful watch", email);
+        get_profile(user_profile.elements.userId.value);
+      }
+    });
+  }
+});
 
 // ################# User Profile ####################
 // ####################################################
@@ -506,12 +522,13 @@ confirm_update.addEventListener("click", (e) => {
 // ###############################################
 let home = document.getElementById("home");
 home.addEventListener("click", () => {
+  screen_jobs.textContent = "";
   screen_profile.style.display = "none";
   screen_jobs.style.display = "block";
   screen_create_post.style.display = "none";
   screen_profile_update.style.display = "none";
   screen_update_post.style.display = "none";
-
+  startId = 0;
   getFeedPage(startId);
   // ############ infinite scroll #################
   window.addEventListener("scroll", () => {
@@ -742,5 +759,5 @@ const createJobFeed = (job) => {
   job_box.appendChild(other_comments);
   return job_box;
 };
-// login("james@email.com", "betty");
-login("betty@email.com", "cardigan");
+login("james@email.com", "betty");
+// login("betty@email.com", "cardigan");
