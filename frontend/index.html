@@ -75,10 +75,10 @@
           <input type="password" placeholder="Password" name="psw" class="form-control" />
         </div>
 
-        <div class="btn-group">
-          <input type="submit" class="btn btn-primary" name="submit" value="Login" />
+        <div id="login_btns">
+          <input type="submit" class="btn btn-outline-primary" name="submit" value="Login" />
           <small class="form-text text-muted">Don't have an account? Click here for registration</small>
-          <button class="btn btn-success" id="register-btn">Register</button>
+          <button class="btn btn-outline-success" id="register-btn">Register</button>
         </div>
       </form>
 
@@ -107,16 +107,16 @@
           <input type="password" placeholder="Password" name="psw2" class="form-control" />
         </div>
         <div class="btn_group">
-          <input type="submit" class="btn btn-primary" name="submit" />
-          <button class="btn btn-primary return-login">Back</button>
+          <input type="submit" class="btn btn-outline-primary" name="submit" />
+          <input type="submit" class="btn btn-outline-secondary" value="Back" name="back" />
         </div>
       </form>
 
       <!-- response after registration -->
-      <div id="screen_registered">
-        <h1>Congrats! You've successfully registered your account!</h1>
-        <button class="btn btn-primary return-login">Back</button>
-      </div>
+      <form id="screen_registered">
+        <h3>Congrats! You've successfully registered your account!</h3>
+        <input type="submit" class="btn btn-outline-secondary" value="Back" name="back" />
+      </form>
 
       <!-- error/message popup window -->
       <div id="error-popup">
@@ -129,7 +129,7 @@
       <!-- show user profile -->
       <div id="screen_profile">
         <div id="btns_other_profile">
-          <button id="return_own_profile" class="btn btn-primary">Return</button>
+          <button id="return_own_profile" class="btn btn-outline-primary">Return</button>
           <button id="watch" class="btn" value=""></button>
         </div>
 
@@ -151,7 +151,7 @@
             User ID:
             <input class="form-control" type="text" , value="" , name="userId" , disabled />
           </div>
-          <button id="btn_update_profile" , class="btn btn-success">Update</button>
+          <button id="btn_update_profile" , class="btn btn-outline-success">Update</button>
         </form>
         <div id="profile_job" class="profile_section">
           <h3>Created Jobs</h3>
@@ -198,7 +198,7 @@
             />
           </div>
 
-          <button id="confirm_update" , class="btn btn-success">Confirm</button>
+          <button id="confirm_update" , class="btn btn-outline-success">Confirm</button>
         </form>
       </div>
 
@@ -224,7 +224,7 @@
           <input class="form-control" type="date" value="" name="start" />
         </div>
 
-        <button id="btn_post" , class="btn btn-success">Post</button>
+        <button id="btn_post" , class="btn btn-outline-success">Post</button>
       </form>
 
       <!-- show the screen for updating a job post -->
@@ -254,8 +254,8 @@
         </div>
 
         <div class="btn_group">
-          <button id="btn_update_post" , class="btn btn-success">Update</button>
-          <button id="btn_cancel_update_post" , class="btn btn-danger">Cancel</button>
+          <button id="btn_update_post" , class="btn btn-outline-success">Update</button>
+          <button id="btn_cancel_update_post" , class="btn btn-outline-danger">Cancel</button>
         </div>
       </form>
 

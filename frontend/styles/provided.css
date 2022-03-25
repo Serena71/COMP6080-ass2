@@ -8,7 +8,7 @@ body {
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.5em;
 }
 #body_content {
   width: 90%;
@@ -79,7 +79,7 @@ footer {
 }
 
 #screen_jobs {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -142,8 +142,24 @@ footer {
   overflow: scroll;
 }
 
+#btn_post {
+  float: right;
+}
+
 .btn_group {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+#login_btns {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+@media (max-width: 800px) {
+  #screen_profile {
+    flex-direction: column;
+  }
 }

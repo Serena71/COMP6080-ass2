@@ -10,8 +10,8 @@ const register_btn = document.getElementById("register-btn");
 
 const screen_register = document.getElementById("screen_register");
 const submit_register = screen_register.submit;
+const back_to_login = screen_register.back;
 const screen_registered = document.getElementById("screen_registered");
-
 const error_popup = document.getElementById("error-popup");
 const popup_close = document.getElementById("popup-close");
 
@@ -232,11 +232,18 @@ submit_register.addEventListener("click", (event) => {
           userToken = body.token;
           userID = body.userId;
           // console.log(userToken, userID);
+          screen_register.reset();
           screen_register.style.display = "none";
           screen_registered.style.display = "block";
         }
       });
   }
+});
+screen_registered.back.addEventListener("click", (e) => {
+  console.log("registered");
+  e.preventDefault();
+  screen_login.style.display = "block";
+  screen_registered.style.display = "none";
 });
 
 // ############# Error/Message Popup ##################
@@ -300,10 +307,10 @@ const job_del_upd = (job) => {
   const deleteUpdate = document.createElement("div");
   const del = document.createElement("button");
   del.classList.add("btn");
-  del.classList.add("btn-danger");
+  del.classList.add("btn-outline-danger");
   const upd = document.createElement("button");
   upd.classList.add("btn");
-  upd.classList.add("btn-primary");
+  upd.classList.add("btn-outline-primary");
   deleteUpdate.classList.add("btn_group");
 
   del.textContent = "Delete";
@@ -518,26 +525,32 @@ confirm_update.addEventListener("click", (e) => {
   }
 });
 
+back_to_login.addEventListener("click", (e) => {
+  e.preventDefault();
+  screen_register.style.display = "none";
+  screen_login.style.display = "block";
+});
+
 //############### Return Home #####################
 // ###############################################
 let home = document.getElementById("home");
 home.addEventListener("click", () => {
-  screen_jobs.textContent = "";
+  // screen_jobs.textContent = "";
   screen_profile.style.display = "none";
   screen_jobs.style.display = "block";
   screen_create_post.style.display = "none";
   screen_profile_update.style.display = "none";
   screen_update_post.style.display = "none";
-  startId = 0;
-  getFeedPage(startId);
-  // ############ infinite scroll #################
-  window.addEventListener("scroll", () => {
-    console.log("working");
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-      console.log("reached end");
-      getFeedPage(startId);
-    }
-  });
+  // startId = 0;
+  // getFeedPage(startId);
+  // // ############ infinite scroll #################
+  // window.addEventListener("scroll", () => {
+  //   console.log("working");
+  //   if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+  //     console.log("reached end");
+  //     getFeedPage(startId);
+  //   }
+  // });
 });
 
 // ############## Create Job ######################
@@ -592,6 +605,7 @@ const apiCreateJob = (screen_create_post, img) => {
 function create_job_box(feed) {
   const job_box = document.createElement("div");
   job_box.style.border = "1px solid black";
+  job_box.style.borderRadius = "5px";
   job_box.style.padding = "2rem 1rem";
   job_box.style.marginTop = "2rem";
   job_box.style.marginBottom = "1rem";
@@ -637,9 +651,8 @@ const createJobFeed = (job) => {
   const job_box = create_job_box(job);
 
   // mega data: auther, n_like(clickable), n_comment(clickable)
-  const mega_data = document.createElement("div");
-  mega_data.style.display = "flex";
-  mega_data.style.justifyContent = "space-between";
+  const like_comment = document.createElement("div");
+  like_comment.classList.add("btn_group");
 
   const author = document.createElement("p");
   const n_like = document.createElement("button");
@@ -654,28 +667,32 @@ const createJobFeed = (job) => {
   }
 
   n_comment.classList.add("btn");
-  n_comment.classList.add("btn-secondary");
+  n_comment.classList.add("btn-outline-secondary");
   // finished styling
 
-  mega_data.appendChild(author);
-  mega_data.appendChild(n_like);
-  mega_data.appendChild(n_comment);
+  like_comment.appendChild(n_like);
+  like_comment.appendChild(n_comment);
 
   //   liked by, leavecomment, comments
   const likedBy = document.createElement("div");
   const comment = document.createElement("div");
-
   const comment_text = document.createElement("textarea");
+
+  comment.classList.add("input-group");
   comment_text.classList.add("form-control");
   comment_text.setAttribute("placeholder", "Add a comment");
 
+  const comment_btn_div = document.createElement("div");
+  comment_btn_div.classList.add("input-group-append");
   const comment_btn = document.createElement("button");
+
   comment_btn.textContent = "Send";
   comment_btn.style.float = "right";
   comment_btn.classList.add("btn");
   comment_btn.classList.add("btn-info");
+  comment_btn_div.appendChild(comment_btn);
   comment.appendChild(comment_text);
-  comment.appendChild(comment_btn);
+  comment.appendChild(comment_btn_div);
   comment.style.display = "none";
 
   const other_comments = document.createElement("div");
@@ -689,7 +706,7 @@ const createJobFeed = (job) => {
     // triger a like/unlike
     n_like.addEventListener("click", (e) => {
       let requestBody = "";
-      if (isliked) {
+      if (n_like.classList.contains("btn-danger")) {
         n_like.classList.remove("btn-danger");
         // need to unlike
         requestBody = {
@@ -710,7 +727,7 @@ const createJobFeed = (job) => {
     // triger a comment
     n_comment.addEventListener("click", () => {
       if (comment.style.display === "none") {
-        comment.style.display = "block";
+        comment.style.display = "flex";
         comment_btn.addEventListener("click", () => {
           if (comment_text.value) {
             apiCall("job/comment", "POST", {
@@ -752,12 +769,12 @@ const createJobFeed = (job) => {
       get_profile(comment.userId);
     });
   });
-
-  job_box.appendChild(mega_data);
+  job_box.appendChild(author);
+  job_box.appendChild(like_comment);
   job_box.appendChild(likedBy);
   job_box.appendChild(comment);
   job_box.appendChild(other_comments);
   return job_box;
 };
-login("james@email.com", "betty");
-// login("betty@email.com", "cardigan");
+// login("james@email.com", "betty");
+login("betty@email.com", "cardigan");
