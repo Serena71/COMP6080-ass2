@@ -45,14 +45,43 @@ footer {
 #error-popup {
   display: none;
   width: 36%;
-  height: 5em;
+  min-height: fit-content;
+  padding-bottom: 2em;
   border: 1px solid darkcyan;
   background-color: aliceblue;
   border-radius: 5px;
   margin: 0 auto;
+  position: sticky;
+  top: 0px;
 }
 
-#error-popup #popup-header {
+#notification-popup {
+  display: none;
+  width: 36%;
+  height: fit-content;
+  border: 1px solid darkcyan;
+  background-color: aliceblue;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 1em 2em;
+  position: sticky;
+  top: 40%;
+}
+
+#search_watch_popup {
+  display: none;
+  padding: 1% 2%;
+  width: 30%;
+  align-self: flex-start;
+  border: 1px solid rgb(135, 180, 135);
+  border-radius: 5px;
+}
+
+#home_page_search_btn {
+  align-self: flex-start;
+}
+
+#popup-header {
   background-color: rgb(58, 58, 122);
   height: 1em;
   display: flex;
@@ -64,7 +93,7 @@ footer {
   text-align: center;
   color: white;
 }
-#error-popup #popup-text {
+.popup-text {
   text-align: center;
   font-size: 15px;
 }
@@ -84,6 +113,10 @@ footer {
   flex-direction: column;
   background-color: white;
   border-radius: 5px;
+}
+
+#home_page_search_btn {
+  display: none;
 }
 
 .leave_comments {
@@ -115,6 +148,7 @@ footer {
 }
 
 #screen_profile_update {
+  width: 100%;
   display: none;
 }
 
@@ -123,14 +157,20 @@ footer {
 }
 
 #screen_create_post {
+  width: 100%;
   display: none;
 }
 #screen_update_post {
+  width: 100%;
   display: none;
+}
+
+#update_post_ori_img {
+  max-width: 100%;
 }
 #profile_job {
   flex: 2;
-  height: 90vh;
+  max-height: 90vh;
   overflow: scroll;
 }
 #profile_personal {
@@ -161,5 +201,24 @@ footer {
 @media (max-width: 800px) {
   #screen_profile {
     flex-direction: column;
+  }
+
+  #error-popup {
+    display: none;
+    width: 80%;
+    height: 5em;
+    min-height: fit-content;
+    border: 1px solid darkcyan;
+    background-color: aliceblue;
+    border-radius: 5px;
+    margin: 0 auto;
+  }
+  #search_watch_popup {
+    display: none;
+    padding: 1% 2%;
+    width: 80%;
+    align-self: flex-start;
+    border: 1px solid rgb(135, 180, 135);
+    border-radius: 5px;
   }
 }

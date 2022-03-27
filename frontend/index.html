@@ -12,8 +12,6 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" />
   </head>
   <body>
@@ -60,6 +58,14 @@
 
     <!-- the div for webpage contents -->
     <div id="body_content">
+      <!-- error/message popup window -->
+      <div id="error-popup">
+        <div id="popup-header">
+          <div id="popup-close">X</div>
+        </div>
+        <div class="popup-text"></div>
+      </div>
+
       <!-- login page -->
       <form id="screen_login">
         <h3>Login</h3>
@@ -118,12 +124,28 @@
         <input type="submit" class="btn btn-outline-secondary" value="Back" name="back" />
       </form>
 
-      <!-- error/message popup window -->
-      <div id="error-popup">
-        <div id="popup-header">
-          <div id="popup-close">X</div>
+      <!-- notification popup -->
+      <div id="notification-popup">
+        <div class="popup-text">
+          <h4>New Notification:</h4>
+          <p>The user you are watching just created a new job post!</p>
         </div>
-        <div id="popup-text"></div>
+        <div class="btn_group">
+          <button id="notification-button-1" class="btn btn-outline-success">Have A Look</button>
+          <button id="notification-button-2" class="btn btn-outline-primary">I Got It</button>
+        </div>
+      </div>
+
+      <!-- search email -->
+      <button id="home_page_search_btn" class="btn btn-outline-primary">Watch a User</button>
+      <div id="search_watch_popup">
+        <form name="search_watch_popup">
+          <input type="email" placeholder="Enter user email" class="form-control" name="email" />
+          <div class="btn_group">
+            <button class="btn btn-outline-danger" name="cancel">Cancel</button>
+            <button class="btn btn-outline-success" name="watch">Watch</button>
+          </div>
+        </form>
       </div>
 
       <!-- show user profile -->
@@ -151,7 +173,7 @@
             User ID:
             <input class="form-control" type="text" , value="" , name="userId" , disabled />
           </div>
-          <button id="btn_update_profile" , class="btn btn-outline-success">Update</button>
+          <button id="btn_update_profile" , class="btn btn-outline-primary">Update</button>
         </form>
         <div id="profile_job" class="profile_section">
           <h3>Created Jobs</h3>
@@ -197,8 +219,10 @@
               name="password"
             />
           </div>
-
-          <button id="confirm_update" , class="btn btn-outline-success">Confirm</button>
+          <div class="btn_group">
+            <button id="cancel_update" , class="btn btn-outline-danger">Cancel</button>
+            <button id="confirm_update" , class="btn btn-outline-success">Confirm</button>
+          </div>
         </form>
       </div>
 
@@ -223,13 +247,13 @@
           Start Date:
           <input class="form-control" type="date" value="" name="start" />
         </div>
-
+        <button id="btn_post_cancel" , class="btn btn-outline-danger">Cancel</button>
         <button id="btn_post" , class="btn btn-outline-success">Post</button>
       </form>
 
       <!-- show the screen for updating a job post -->
       <form name="screen_update_post" id="screen_update_post">
-        <h3>Create Your Post</h3>
+        <h3>Update Your Post</h3>
         <div class="form-group">
           Title:
           <input type="text" name="title" class="form-control-file" />
@@ -254,8 +278,8 @@
         </div>
 
         <div class="btn_group">
-          <button id="btn_update_post" , class="btn btn-outline-success">Update</button>
           <button id="btn_cancel_update_post" , class="btn btn-outline-danger">Cancel</button>
+          <button id="btn_update_post" , class="btn btn-outline-success">Confirm</button>
         </div>
       </form>
 
