@@ -53,6 +53,10 @@ let userID = null;
 let startId = 0;
 let pollingId = 0;
 
+// ########################################################
+// Helper functions
+// ########################################################
+
 function apiCall(path, method, body) {
   return new Promise((resolve, reject) => {
     const init = {
@@ -180,9 +184,6 @@ const polling = (timeout) => {
           pollingId = 0;
           setTimeout(fetch_update, timeout);
         }
-        // if (screen_jobs.style.display == "none") {
-        //   console.log("pause");
-        // }
       })
       .catch(() => {
         console.log("fail to poll");
@@ -193,6 +194,7 @@ const polling = (timeout) => {
   return fetch_update();
 };
 
+// update job feed contents from polling
 const polling_value_update = (current_job, new_job) => {
   current_job.children[0].textContent = new_job.title;
   current_job.children[2].textContent = `Description: ${new_job.description}`;
@@ -232,8 +234,9 @@ const polling_value_update = (current_job, new_job) => {
   }
 };
 
-// ############### Search User By Email #############
-// ####################################################
+// ########################################################
+// Search User By Email
+// ########################################################
 
 // nav_bar watch user button
 search_btn.addEventListener("click", (e) => {
@@ -288,8 +291,9 @@ const getStaticFeed = () => {
   screen_jobs.style.display = "block";
 };
 
-// ############## get job feeds ###################
-// ###############################################
+// ########################################################
+// get job feeds on home page
+// ########################################################
 
 const getFeedPage = (id) => {
   apiCall(`job/feed?start=${id}`, "GET", {})
@@ -312,6 +316,17 @@ const getFeedPage = (id) => {
     });
 };
 
+window.addEventListener("scroll", () => {
+  if (
+    window.scrollY + window.innerHeight >= document.documentElement.scrollHeight &&
+    screen_jobs.style.display == "block"
+  ) {
+    console.log("reached end");
+    getFeedPage(startId);
+  }
+});
+
+// ########################################################
 // ####################### login #########################
 // #######################################################
 
@@ -347,17 +362,15 @@ submit_login.addEventListener("click", (event) => {
   }
 });
 
-// back to login
-let return_login_btns = document.getElementsByClassName("return-login");
-for (const btn of return_login_btns) {
-  btn.addEventListener("click", (event) => {
-    event.preventDefault();
-    let parent = event.currentTarget.parentElement;
-    parent.style.display = "none";
-    screen_login.style.display = "block";
-  });
-}
+// back to login from registration page
+back_to_login.addEventListener("click", (e) => {
+  e.preventDefault();
+  screen_register.reset();
+  screen_register.style.display = "none";
+  screen_login.style.display = "block";
+});
 
+// ########################################################
 // #################### registration  ###################
 // ##################################################
 
@@ -391,6 +404,7 @@ submit_register.addEventListener("click", (event) => {
   }
 });
 
+// ########## registered ############
 screen_registered.back.addEventListener("click", (e) => {
   console.log("registered");
   e.preventDefault();
@@ -398,6 +412,7 @@ screen_registered.back.addEventListener("click", (e) => {
   screen_registered.style.display = "none";
 });
 
+// ########################################################
 // ############# Error/Message Popup ##################
 // ##################################################
 
@@ -405,8 +420,10 @@ popup_close.addEventListener("click", (event) => {
   error_popup.style.display = "none";
 });
 
+// ########################################################
 // ################# job delete/update ##################
 // ##################################################
+
 const apiPostUpdate = (jobId, screen_update_post, img) => {
   const requestBody = {
     id: jobId,
@@ -415,7 +432,6 @@ const apiPostUpdate = (jobId, screen_update_post, img) => {
     start: screen_update_post.elements.start.value,
     description: screen_update_post.elements.description.value,
   };
-  // console.log(requestBody);
   apiCall("job", "PUT", requestBody)
     .then((res) => {
       if (res.error) {
@@ -497,6 +513,7 @@ const job_del_upd = (job) => {
   return deleteUpdate;
 };
 
+// ########################################################
 // ################# get profile ##################
 // ##################################################
 
@@ -574,7 +591,6 @@ const get_profile = (id) => {
             }
             get_profile(user.id);
           });
-          // btn event
         });
         display_profile();
       });
@@ -584,6 +600,9 @@ const get_profile = (id) => {
     });
 };
 
+// ########################################################
+// ####################### Watch / Unwatch ################
+// #######################################################
 btn_watch.addEventListener("click", (e) => {
   e.preventDefault();
   const email = user_profile.elements.email.value;
@@ -622,7 +641,8 @@ btn_watch.addEventListener("click", (e) => {
     });
 });
 
-// ################# User Profile ####################
+// ########################################################
+// ################# User Profile - update/display ########
 // ####################################################
 
 const display_profile = () => {
@@ -672,7 +692,6 @@ const update_profile = (img, update_form) => {
           display_error(data.error);
         } else {
           display_error("Profile Updated!");
-          // display_profile();
           screen_profile_update.style.display = "none";
           get_profile(userID);
         }
@@ -696,29 +715,14 @@ confirm_update.addEventListener("click", (e) => {
     update_profile(undefined, update_form);
   }
 });
+
 cancel_update.addEventListener("click", (e) => {
   e.preventDefault();
   update_form.reset();
   display_profile();
 });
 
-back_to_login.addEventListener("click", (e) => {
-  e.preventDefault();
-  screen_register.reset();
-  screen_register.style.display = "none";
-  screen_login.style.display = "block";
-});
-
-window.addEventListener("scroll", () => {
-  if (
-    window.scrollY + window.innerHeight >= document.documentElement.scrollHeight &&
-    screen_jobs.style.display == "block"
-  ) {
-    console.log("reached end");
-    getFeedPage(startId);
-  }
-});
-
+// ################################################
 //############### Return Home #####################
 // ###############################################
 const refreshJobPage = () => {
@@ -744,9 +748,11 @@ home.addEventListener("click", (e) => {
   refreshJobPage();
 });
 
+// #################################################
 // ############## Create Job ######################
 // ##############################################
 
+// cancel job post
 btn_post_cancel.addEventListener("click", (e) => {
   e.preventDefault();
   screen_create_post.reset();
@@ -763,6 +769,7 @@ create_job_tab.addEventListener("click", (e) => {
   screen_jobs.style.display = "none";
 });
 
+// sumit the job post
 btn_post.addEventListener("click", (e) => {
   e.preventDefault();
   const jobImage = screen_create_post.elements.image.files[0];
@@ -802,9 +809,11 @@ const apiCreateJob = (screen_create_post, img) => {
   }
 };
 
-// ############################ Job Feeds ####################################
-//  ################################################################
+// ########################################################
+// ############################ Job Feeds #################
+//  #######################################################
 
+// create a box for each job - job content only
 function create_job_box(feed) {
   const job_box = document.createElement("div");
   job_box.style.border = "1px solid black";
@@ -852,6 +861,7 @@ const isLiked = (job) => {
   }
 };
 
+// include other information in the job box, (e.g. likes, comments)
 const createJobFeed = (job) => {
   let isliked = isLiked(job);
   // job box root container
@@ -1006,5 +1016,6 @@ const createJobFeed = (job) => {
   job_box.appendChild(other_comments);
   return job_box;
 };
+
 // login("james@gmail.com", "Betty123");
 // login("betty@email.com", "cardigan");
