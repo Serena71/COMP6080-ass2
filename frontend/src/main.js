@@ -137,12 +137,6 @@ const passwordValid = (password) => {
 // ########################################################
 // Notification
 // ########################################################
-// const displayNotification = () => {
-//   const notification = new Notification("A new message", {
-//     body: "The user you are watching just created a new job post.",
-//   });
-//   setTimeout(() => notification.close(), 5000);
-// };
 const notif_btn_1 = document.getElementById("notification-button-1");
 const notif_btn_2 = document.getElementById("notification-button-2");
 const notification = document.getElementById("notification-popup");
@@ -291,9 +285,6 @@ home_page_search_form.elements.cancel.addEventListener("click", (e) => {
 });
 
 const getStaticFeed = () => {
-  // for (let i = 0; i < localStorage.length; i++) {
-  //   screen_jobs.appendChild(createJobFeed(localStorage.getItem(localStorage.key(i))));
-  // }
   screen_jobs.style.display = "block";
 };
 
@@ -719,7 +710,10 @@ back_to_login.addEventListener("click", (e) => {
 });
 
 window.addEventListener("scroll", () => {
-  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+  if (
+    window.scrollY + window.innerHeight >= document.documentElement.scrollHeight &&
+    screen_jobs.style.display == "block"
+  ) {
     console.log("reached end");
     getFeedPage(startId);
   }
