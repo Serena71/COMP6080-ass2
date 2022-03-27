@@ -12,7 +12,7 @@ h3 {
 }
 #body_content {
   width: 90%;
-  padding: 1% 2%;
+  padding: 5% 2%;
   display: flex;
   /* flex: 5; */
   flex-direction: column;
